@@ -17,6 +17,8 @@ import { ParallaxLayer } from "./ParallaxLayer";
 import { ParallaxBackdrop } from "./parallax/ParallaxBackdrop";
 import { ParallaxColumn, ParallaxSection } from "./parallax/ParallaxSection";
 import { ParallaxFloat } from "./parallax/ParallaxFloat";
+import { MobileNav } from "./MobileNav";
+import { useDesktopEffects } from "@/hooks/useMediaQuery";
 
 type HomePageProps = {
   settings: SiteSettings;
@@ -36,6 +38,8 @@ const PARTNER_LOGOS: { src: string; alt: string }[] = [];
 
 export function HomePage({ settings, articles }: HomePageProps) {
   const reduceMotion = useReducedMotion();
+  const desktopEffects = useDesktopEffects();
+  const heroMotion = desktopEffects && !reduceMotion;
   const heroRef = useRef<HTMLElement>(null);
   const cabinetRef = useRef<HTMLDivElement>(null);
 
@@ -61,12 +65,15 @@ export function HomePage({ settings, articles }: HomePageProps) {
     <div className="relative overflow-x-hidden bg-[#f4f9fc] text-slate-800">
       <ParallaxBackdrop />
 
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 bg-white/70 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-          <a href="#accueil" className="font-serif text-lg text-slate-800">
-            {settings.practitionerName}
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 bg-white/70 pt-[env(safe-area-inset-top)] backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+          <a
+            href="#accueil"
+            className="min-w-0 flex-1 font-serif text-base leading-tight text-slate-800 sm:text-lg lg:flex-none"
+          >
+            <span className="line-clamp-2 lg:line-clamp-none">{settings.practitionerName}</span>
           </a>
-          <nav className="hidden items-center gap-6 text-sm text-slate-600 md:flex">
+          <nav className="hidden items-center gap-6 text-sm text-slate-600 lg:flex">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -77,20 +84,25 @@ export function HomePage({ settings, articles }: HomePageProps) {
               </a>
             ))}
           </nav>
-          <DoctolibButton href={settings.doctolibUrl} />
+          <DoctolibButton
+            href={settings.doctolibUrl}
+            variant="header"
+            className="shrink-0 lg:hidden"
+          >
+            Doctolib
+          </DoctolibButton>
+          <DoctolibButton href={settings.doctolibUrl} className="hidden shrink-0 lg:inline-block" />
         </div>
       </header>
 
       <section
         id="accueil"
         ref={heroRef}
-        className="relative flex min-h-[115vh] items-center px-6 pb-32 pt-24"
+        className="relative flex min-h-[100svh] items-center px-4 pb-24 pt-20 sm:px-6 sm:pb-32 sm:pt-24 lg:min-h-[115vh]"
       >
         <motion.div
           style={
-            reduceMotion
-              ? undefined
-              : { y: heroBgY, opacity: heroOverlayOpacity }
+            heroMotion ? { y: heroBgY, opacity: heroOverlayOpacity } : undefined
           }
           className="pointer-events-none absolute inset-0 -z-10"
           aria-hidden
@@ -99,50 +111,55 @@ export function HomePage({ settings, articles }: HomePageProps) {
           <div className="absolute bottom-[5%] left-[-8%] h-[32rem] w-[32rem] rounded-full bg-cyan-200/40 blur-3xl" />
         </motion.div>
 
-        <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center">
           <motion.div
+            className="order-1 lg:order-none"
             style={
-              reduceMotion
-                ? undefined
-                : { y: heroTextY, opacity: heroTextOpacity, willChange: "transform" }
+              heroMotion
+                ? { y: heroTextY, opacity: heroTextOpacity, willChange: "transform" }
+                : undefined
             }
             initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-600">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-sky-600 sm:text-sm lg:tracking-[0.25em]">
               {settings.title}
             </p>
-            <h1 className="mt-4 font-serif text-4xl leading-tight text-slate-900 md:text-5xl lg:text-6xl">
+            <h1 className="mt-3 font-serif text-[1.75rem] leading-tight text-slate-900 sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl">
               {settings.practitionerName}
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-slate-600">{settings.heroTagline}</p>
-            <p className="mt-3 text-slate-500">{settings.subtitle}</p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <DoctolibButton href={settings.doctolibUrl} />
+            <p className="mt-4 max-w-lg text-base text-slate-600 sm:mt-6 sm:text-lg">{settings.heroTagline}</p>
+            <p className="mt-2 text-sm text-slate-500 sm:mt-3 sm:text-base">{settings.subtitle}</p>
+            <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
+              <DoctolibButton href={settings.doctolibUrl} className="max-lg:!block max-lg:!w-full" />
               <a
                 href="#cabinet"
-                className="inline-flex rounded-full border border-sky-200 bg-white/80 px-6 py-3 font-medium text-sky-800 transition hover:bg-white"
+                className="inline-flex justify-center rounded-full border border-sky-200 bg-white/80 px-6 py-3 text-center font-medium text-sky-800 transition hover:bg-white max-lg:w-full"
               >
                 Découvrir le cabinet
               </a>
             </div>
           </motion.div>
 
-          <ParallaxLayer offset={200} speed={1.4} className="relative mx-auto w-full max-w-md lg:max-w-none">
+          <ParallaxLayer
+            offset={200}
+            speed={1.4}
+            className="relative order-2 mx-auto w-full max-w-sm sm:max-w-md lg:order-none lg:max-w-none"
+          >
             <motion.div
               style={
-                reduceMotion
-                  ? undefined
-                  : {
+                heroMotion
+                  ? {
                       y: heroImageY,
                       scale: heroImageScale,
                       rotate: heroImageRotate,
                       willChange: "transform",
                     }
+                  : undefined
               }
             >
-              <div className="rounded-[2rem] border border-white/80 bg-white/60 p-4 shadow-2xl shadow-sky-200/50 backdrop-blur sm:p-6">
+              <div className="rounded-2xl border border-white/80 bg-white/60 p-3 shadow-2xl shadow-sky-200/50 backdrop-blur sm:rounded-[2rem] sm:p-4 lg:p-6">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sky-50">
                   <Image
                     src={assetUrl(settings.practitionerImage || "/practitioner.jpg")}
@@ -156,7 +173,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
                     <p className="text-xs uppercase tracking-widest text-sky-100">
                       Bures-sur-Yvette
                     </p>
-                    <p className="mt-2 font-serif text-xl text-white">
+                    <p className="mt-2 font-serif text-base text-white sm:text-xl">
                       Chirurgien Dentiste Implantologue
                     </p>
                   </div>
@@ -169,7 +186,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
         <ParallaxFloat
           speed={0.9}
           distance={400}
-          className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-center"
+          className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-center sm:bottom-8 lg:block"
         >
           <p className="text-xs uppercase tracking-[0.35em] text-sky-500/80">Défiler</p>
           <motion.div
@@ -184,7 +201,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <ParallaxSection
         id="cabinet"
-        className="relative z-10 -mt-24 px-6 pb-28 pt-8"
+        className="relative z-10 -mt-8 px-4 pb-20 pt-6 sm:px-6 sm:pb-28 sm:pt-8 lg:-mt-24"
         background={
           <>
             <div className="absolute -left-32 top-20 h-64 w-64 rounded-full bg-sky-100/60 blur-2xl" />
@@ -193,7 +210,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
         }
       >
         <div ref={cabinetRef} className="mx-auto max-w-6xl">
-          <div className="grid gap-12 md:grid-cols-2 md:items-center rounded-[2.5rem] border border-sky-100/90 bg-white/85 px-8 py-16 shadow-2xl shadow-sky-100/60 backdrop-blur-md md:px-14">
+          <div className="grid gap-8 rounded-2xl border border-sky-100/90 bg-white/85 px-5 py-10 shadow-2xl shadow-sky-100/60 backdrop-blur-md sm:gap-12 sm:rounded-[2.5rem] sm:px-8 sm:py-16 md:grid-cols-2 md:items-center md:px-14">
             <ParallaxColumn progress={cabinetProgress} direction={-1}>
               <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
                 Un cabinet pensé pour votre sérénité
@@ -223,13 +240,13 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <LogoRail logos={PARTNER_LOGOS} />
 
-      <section id="expertise" className="relative px-6 py-24">
+      <section id="expertise" className="relative px-4 py-16 sm:px-6 sm:py-24">
         <ParallaxFloat speed={0.35} distance={180} className="mx-auto max-w-6xl text-center">
           <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
             Domaines d&apos;expertise
           </h2>
         </ParallaxFloat>
-        <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-4 sm:mt-14 sm:gap-6 md:grid-cols-3">
           {[
             {
               title: "Implantologie",
@@ -250,7 +267,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.08, duration: 0.55 }}
-                className="rounded-3xl border border-white bg-white/90 p-8 shadow-lg shadow-sky-100/40"
+                className="rounded-2xl border border-white bg-white/90 p-6 shadow-lg shadow-sky-100/40 sm:rounded-3xl sm:p-8"
               >
                 <div className="mb-4 h-1 w-12 rounded-full bg-sky-400" />
                 <h3 className="text-xl font-medium text-slate-800">{item.title}</h3>
@@ -263,14 +280,14 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <ParallaxSection
         id="contact"
-        className="px-6 pb-12 pt-8"
+        className="px-4 pb-8 pt-6 sm:px-6 sm:pb-12 sm:pt-8"
         background={
           <div className="absolute inset-x-0 top-1/4 h-1/2 bg-gradient-to-b from-sky-200/20 to-transparent" />
         }
       >
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-sky-700 to-cyan-800 text-white shadow-2xl">
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl bg-gradient-to-br from-sky-700 to-cyan-800 text-white shadow-2xl sm:rounded-[2.5rem]">
           <div className="grid lg:grid-cols-2">
-            <ParallaxFloat speed={0.3} distance={140} className="p-10 md:p-14">
+            <ParallaxFloat speed={0.3} distance={140} className="p-6 sm:p-10 md:p-14">
               <h2 className="font-serif text-3xl md:text-4xl">Nous contacter</h2>
               <ul className="mt-8 space-y-4 text-sky-50/95">
                 <li>{settings.address}</li>
@@ -289,15 +306,19 @@ export function HomePage({ settings, articles }: HomePageProps) {
                 ) : null}
                 <li>{settings.openingHours}</li>
               </ul>
-              <div className="mt-10">
-                <DoctolibButton href={settings.doctolibUrl} />
+              <div className="mt-8 sm:mt-10">
+                <DoctolibButton href={settings.doctolibUrl} className="doctolib-cta-full lg:doctolib-cta-inline" />
               </div>
             </ParallaxFloat>
-            <ParallaxFloat speed={0.55} distance={200} className="relative min-h-[280px] bg-sky-900/30 p-6 lg:min-h-0">
+            <ParallaxFloat
+              speed={0.55}
+              distance={200}
+              className="relative min-h-[240px] bg-sky-900/30 p-4 sm:min-h-[280px] sm:p-6 lg:min-h-0"
+            >
               <iframe
                 title="Prise de rendez-vous Doctolib"
                 src={settings.doctolibUrl}
-                className="h-full min-h-[320px] w-full rounded-2xl border-0 bg-white shadow-inner lg:absolute lg:inset-6 lg:min-h-0 lg:w-[calc(100%-3rem)]"
+                className="h-full min-h-[260px] w-full rounded-xl border-0 bg-white shadow-inner sm:min-h-[320px] sm:rounded-2xl lg:absolute lg:inset-6 lg:min-h-0 lg:w-[calc(100%-3rem)]"
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               />
               <p className="mt-3 text-center text-xs text-sky-100/80 lg:absolute lg:bottom-2 lg:left-0 lg:right-0">
@@ -310,7 +331,9 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <ArticlesSection articles={articles} />
 
-      <footer className="relative border-t border-sky-100 bg-white/80 px-6 py-10 text-center text-sm text-slate-500">
+      <MobileNav doctolibUrl={settings.doctolibUrl} />
+
+      <footer className="relative border-t border-sky-100 bg-white/80 px-4 py-8 text-center text-xs text-slate-500 sm:px-6 sm:py-10 sm:text-sm">
         <p>{settings.practitionerName} — {settings.title}</p>
         {process.env.NEXT_PUBLIC_STATIC_PREVIEW !== "true" && (
           <p className="mt-2">
