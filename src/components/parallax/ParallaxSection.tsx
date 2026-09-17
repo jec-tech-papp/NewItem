@@ -17,6 +17,9 @@ type ParallaxSectionProps = {
   background?: ReactNode;
 };
 
+/**
+ * Parallaxe légère sur le fond uniquement — le contenu reste centré (pas de scale/opacity).
+ */
 export function ParallaxSection({
   children,
   className = "",
@@ -31,38 +34,26 @@ export function ParallaxSection({
     offset: ["start end", "end start"],
   });
 
-  const contentY = useTransform(scrollYProgress, [0, 1], [80, -80]);
-  const bgY = useTransform(scrollYProgress, [0, 1], [120, -200]);
-  const scale = useTransform(scrollYProgress, [0, 0.45, 1], [0.94, 1, 0.98]);
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0.5, 1, 1, 0.85]);
-
-  if (reduceMotion || !desktopEffects) {
-    return (
-      <section id={id} ref={ref} className={`relative ${className}`}>
-        {background ? (
-          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
-            {background}
-          </div>
-        ) : null}
-        {children}
-      </section>
-    );
-  }
+  const bgY = useTransform(scrollYProgress, [0, 1], [80, -120]);
 
   return (
     <section id={id} ref={ref} className={`relative ${className}`}>
       {background ? (
-        <motion.div
-          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-          style={{ y: bgY }}
-          aria-hidden
-        >
-          {background}
-        </motion.div>
+        desktopEffects && !reduceMotion ? (
+          <motion.div
+            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+            style={{ y: bgY }}
+            aria-hidden
+          >
+            {background}
+          </motion.div>
+        ) : (
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
+            {background}
+          </div>
+        )
       ) : null}
-      <motion.div style={{ y: contentY, scale, opacity, willChange: "transform" }}>
-        {children}
-      </motion.div>
+      <div className="relative mx-auto w-full max-w-6xl">{children}</div>
     </section>
   );
 }
@@ -80,7 +71,7 @@ export function ParallaxColumn({
 }) {
   const reduceMotion = useReducedMotion();
   const desktopEffects = useDesktopEffects();
-  const y = useTransform(progress, [0, 1], [60 * direction, -90 * direction]);
+  const y = useTransform(progress, [0, 1], [48 * direction, -72 * direction]);
 
   if (reduceMotion || !desktopEffects) {
     return <div className={className}>{children}</div>;

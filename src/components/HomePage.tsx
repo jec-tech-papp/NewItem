@@ -41,7 +41,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
   const desktopEffects = useDesktopEffects();
   const heroMotion = desktopEffects && !reduceMotion;
   const heroRef = useRef<HTMLElement>(null);
-  const cabinetRef = useRef<HTMLDivElement>(null);
+  const cabinetRef = useRef<HTMLElement>(null);
 
   const { scrollY } = useScroll();
   const { scrollYProgress: heroProgress } = useScroll({
@@ -132,7 +132,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
             <p className="mt-4 max-w-lg text-base text-slate-600 sm:mt-6 sm:text-lg">{settings.heroTagline}</p>
             <p className="mt-2 text-sm text-slate-500 sm:mt-3 sm:text-base">{settings.subtitle}</p>
             <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-              <DoctolibButton href={settings.doctolibUrl} className="max-lg:!block max-lg:!w-full" />
+              <DoctolibButton href={settings.doctolibUrl} className="doctolib-cta-full lg:doctolib-cta-inline" />
               <a
                 href="#cabinet"
                 className="inline-flex justify-center rounded-full border border-sky-200 bg-white/80 px-6 py-3 text-center font-medium text-sky-800 transition hover:bg-white max-lg:w-full"
@@ -199,44 +199,48 @@ export function HomePage({ settings, articles }: HomePageProps) {
         </ParallaxFloat>
       </section>
 
-      <ParallaxSection
+      <section
         id="cabinet"
+        ref={cabinetRef}
         className="relative z-10 -mt-8 px-4 pb-20 pt-6 sm:px-6 sm:pb-28 sm:pt-8 lg:-mt-24"
-        background={
-          <>
-            <div className="absolute -left-32 top-20 h-64 w-64 rounded-full bg-sky-100/60 blur-2xl" />
-            <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-100/50 blur-2xl" />
-          </>
-        }
       >
-        <div ref={cabinetRef} className="mx-auto max-w-6xl">
-          <div className="grid gap-8 rounded-2xl border border-sky-100/90 bg-white/85 px-5 py-10 shadow-2xl shadow-sky-100/60 backdrop-blur-md sm:gap-12 sm:rounded-[2.5rem] sm:px-8 sm:py-16 md:grid-cols-2 md:items-center md:px-14">
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
+          <ParallaxFloat speed={0.35} distance={160} className="absolute -left-32 top-20">
+            <div className="h-64 w-64 rounded-full bg-sky-100/60 blur-2xl" />
+          </ParallaxFloat>
+          <ParallaxFloat speed={0.5} distance={200} className="absolute -right-24 bottom-0">
+            <div className="h-80 w-80 rounded-full bg-cyan-100/50 blur-2xl" />
+          </ParallaxFloat>
+        </div>
+
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="grid w-full gap-8 rounded-2xl border border-sky-100/90 bg-white/85 px-5 py-10 shadow-2xl shadow-sky-100/60 backdrop-blur-md sm:gap-12 sm:rounded-[2.5rem] sm:px-8 sm:py-16 md:grid-cols-2 md:items-center md:px-14">
             <ParallaxColumn progress={cabinetProgress} direction={-1}>
-              <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
-                Un cabinet pensé pour votre sérénité
-              </h2>
-              <p className="mt-6 leading-relaxed text-slate-600">{settings.aboutText}</p>
-            </ParallaxColumn>
-            <ParallaxColumn progress={cabinetProgress} direction={1}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  { label: "Hygiène & stérilisation", desc: "Protocoles stricts, matériel moderne." },
-                  { label: "Écoute", desc: "Temps d'échange à chaque consultation." },
-                  { label: "Technologie", desc: "Imagerie et planification 3D." },
-                  { label: "Douceur", desc: "Soins adaptés à votre confort." },
-                ].map((card, i) => (
-                  <ParallaxFloat key={card.label} speed={0.2 + i * 0.08} distance={100}>
-                    <div className="rounded-2xl border border-sky-50 bg-sky-50/40 p-5">
-                      <p className="font-medium text-slate-800">{card.label}</p>
-                      <p className="mt-2 text-sm text-slate-600">{card.desc}</p>
-                    </div>
-                  </ParallaxFloat>
-                ))}
-              </div>
-            </ParallaxColumn>
+                <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
+                  Un cabinet pensé pour votre sérénité
+                </h2>
+                <p className="mt-6 leading-relaxed text-slate-600">{settings.aboutText}</p>
+              </ParallaxColumn>
+              <ParallaxColumn progress={cabinetProgress} direction={1}>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {[
+                    { label: "Hygiène & stérilisation", desc: "Protocoles stricts, matériel moderne." },
+                    { label: "Écoute", desc: "Temps d'échange à chaque consultation." },
+                    { label: "Technologie", desc: "Imagerie et planification 3D." },
+                    { label: "Douceur", desc: "Soins adaptés à votre confort." },
+                  ].map((card, i) => (
+                    <ParallaxFloat key={card.label} speed={0.2 + i * 0.08} distance={100}>
+                      <div className="rounded-2xl border border-sky-50 bg-sky-50/40 p-5">
+                        <p className="font-medium text-slate-800">{card.label}</p>
+                        <p className="mt-2 text-sm text-slate-600">{card.desc}</p>
+                      </div>
+                    </ParallaxFloat>
+                  ))}
+                </div>
+              </ParallaxColumn>
           </div>
         </div>
-      </ParallaxSection>
+      </section>
 
       <LogoRail logos={PARTNER_LOGOS} />
 
@@ -285,7 +289,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
           <div className="absolute inset-x-0 top-1/4 h-1/2 bg-gradient-to-b from-sky-200/20 to-transparent" />
         }
       >
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl bg-gradient-to-br from-sky-700 to-cyan-800 text-white shadow-2xl sm:rounded-[2.5rem]">
+        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-sky-700 to-cyan-800 text-white shadow-2xl sm:rounded-[2.5rem]">
           <div className="grid lg:grid-cols-2">
             <ParallaxFloat speed={0.3} distance={140} className="p-6 sm:p-10 md:p-14">
               <h2 className="font-serif text-3xl md:text-4xl">Nous contacter</h2>

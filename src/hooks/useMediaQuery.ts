@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState<boolean | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia(query);
@@ -13,10 +13,11 @@ export function useMediaQuery(query: string): boolean {
     return () => media.removeEventListener("change", onChange);
   }, [query]);
 
+  /* Évite un flash « mobile » au chargement sur desktop (parallaxe / mise en page). */
+  if (matches === null) return true;
   return matches;
 }
 
-/** Parallaxe et effets « waou » uniquement à partir du breakpoint desktop (lg). */
 export function useDesktopEffects(): boolean {
   return useMediaQuery("(min-width: 1024px)");
 }
