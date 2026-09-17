@@ -84,14 +84,6 @@ export function HomePage({ settings, articles }: HomePageProps) {
               </a>
             ))}
           </nav>
-          <DoctolibButton
-            href={settings.doctolibUrl}
-            variant="header"
-            className="shrink-0 lg:hidden"
-          >
-            Doctolib
-          </DoctolibButton>
-          <DoctolibButton href={settings.doctolibUrl} className="hidden shrink-0 lg:inline-block" />
         </div>
       </header>
 
