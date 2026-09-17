@@ -221,6 +221,7 @@ export default function AdminPage() {
                 ["city", "Ville"],
                 ["doctolibUrl", "URL Doctolib"],
                 ["openingHours", "Horaires"],
+                ["practitionerImage", "Photo (chemin public, ex. /practitioner.jpg)"],
               ] as const
             ).map(([key, label]) => (
               <label key={key} className="block text-sm">

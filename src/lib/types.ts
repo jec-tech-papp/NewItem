@@ -10,6 +10,7 @@ export interface SiteSettings {
   heroTagline: string;
   aboutText: string;
   openingHours: string;
+  practitionerImage: string;
 }
 
 export interface Article {

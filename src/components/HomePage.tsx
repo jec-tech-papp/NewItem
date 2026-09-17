@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { useRef } from "react";
 import type { Article, SiteSettings } from "@/lib/types";
 import { ArticlesSection } from "./ArticlesSection";
@@ -107,29 +108,24 @@ export function HomePage({ settings, articles }: HomePageProps) {
             </div>
           </motion.div>
 
-          <ParallaxLayer offset={40} className="relative hidden lg:block">
-            <div className="rounded-[2rem] border border-white/80 bg-white/60 p-8 shadow-2xl shadow-sky-100/60 backdrop-blur">
-              <div className="aspect-[4/5] rounded-2xl bg-gradient-to-br from-sky-50 via-white to-cyan-50 p-8">
-                <div className="flex h-full flex-col justify-between">
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-sky-500">
-                      Implantologie
-                    </p>
-                    <p className="mt-4 font-serif text-2xl text-slate-800">
-                      Un accompagnement sur mesure, de la consultation au suivi.
-                    </p>
-                  </div>
-                  <ul className="space-y-3 text-sm text-slate-600">
-                    <li className="flex gap-2">
-                      <span className="text-sky-500">✓</span> Implantologie & chirurgie guidée
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-sky-500">✓</span> Esthétique du sourire
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-sky-500">✓</span> Parcours patient rassurant
-                    </li>
-                  </ul>
+          <ParallaxLayer offset={40} className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="rounded-[2rem] border border-white/80 bg-white/60 p-4 shadow-2xl shadow-sky-100/60 backdrop-blur sm:p-6">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sky-50">
+                <Image
+                  src={settings.practitionerImage || "/practitioner.jpg"}
+                  alt={`Portrait de ${settings.practitionerName}`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 100vw, 480px"
+                  priority
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-sky-950/75 via-sky-900/30 to-transparent p-6 pt-16">
+                  <p className="text-xs uppercase tracking-widest text-sky-100">
+                    Bures-sur-Yvette
+                  </p>
+                  <p className="mt-2 font-serif text-xl text-white">
+                    Implantologie &amp; chirurgie buccale
+                  </p>
                 </div>
               </div>
             </div>
@@ -177,15 +173,15 @@ export function HomePage({ settings, articles }: HomePageProps) {
             {[
               {
                 title: "Implantologie",
-                text: "Remplacement des dents manquantes par des solutions fixes et durables.",
+                text: "Implants dentaires, prothèses sur implant et réhabilitations fixes.",
               },
               {
-                title: "Chirurgie orale",
-                text: "Extractions, greffes osseuses et réhabilitations complexes.",
+                title: "Chirurgie buccale",
+                text: "Extractions, greffes et actes chirurgicaux avec imagerie 3D (cone beam).",
               },
               {
-                title: "Esthétique",
-                text: "Facettes, blanchiment et harmonisation du sourire.",
+                title: "Parodontie",
+                text: "Prise en charge des gencives et du parodonte pour préserver votre sourire.",
               },
             ].map((item, i) => (
               <motion.div
@@ -218,11 +214,13 @@ export function HomePage({ settings, articles }: HomePageProps) {
                     {settings.phone}
                   </a>
                 </li>
-                <li>
-                  <a href={`mailto:${settings.email}`} className="hover:underline">
-                    {settings.email}
-                  </a>
-                </li>
+                {settings.email ? (
+                  <li>
+                    <a href={`mailto:${settings.email}`} className="hover:underline">
+                      {settings.email}
+                    </a>
+                  </li>
+                ) : null}
                 <li>{settings.openingHours}</li>
               </ul>
               <a

@@ -8,13 +8,14 @@ const settingsSchema = z.object({
   title: z.string().min(1),
   subtitle: z.string(),
   phone: z.string(),
-  email: z.string().email(),
+  email: z.union([z.string().email(), z.literal("")]),
   address: z.string(),
   city: z.string(),
   doctolibUrl: z.string().url(),
   heroTagline: z.string(),
   aboutText: z.string(),
   openingHours: z.string(),
+  practitionerImage: z.string(),
 });
 
 export async function GET() {
