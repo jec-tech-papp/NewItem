@@ -220,7 +220,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
                       Bures-sur-Yvette
                     </p>
                     <p className="mt-2 font-serif text-xl text-white">
-                      Chirurgien Dentiste Implantologue
+                      {settings.title}
                     </p>
                   </div>
                 </div>

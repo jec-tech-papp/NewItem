@@ -1,6 +1,6 @@
 # Site vitrine — Dr Cristina Spanu
 
-Site one-page pour une chirurgien-dentiste implantologue : parallaxe au scroll, palette claire, Doctolib, articles en vedette.
+Site one-page pour une chirurgien-dentiste (implantologie, parodontologie) : parallaxe au scroll, palette claire, Doctolib, articles en vedette.
 
 ## Aperçu client (GitHub Pages)
 
