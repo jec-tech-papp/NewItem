@@ -98,22 +98,72 @@ export function HomePage({ settings, articles }: HomePageProps) {
       <section
         id="accueil"
         ref={heroRef}
-        className="relative flex min-h-[100svh] items-center px-4 pb-24 pt-20 sm:px-6 sm:pb-32 sm:pt-24 lg:min-h-[115vh]"
+        className="relative px-4 pb-24 pt-[calc(4.5rem+env(safe-area-inset-top))] sm:px-6 sm:pb-32 lg:flex lg:min-h-[115vh] lg:items-center lg:px-6 lg:pt-24"
       >
         <motion.div
           style={
             heroMotion ? { y: heroBgY, opacity: heroOverlayOpacity } : undefined
           }
-          className="pointer-events-none absolute inset-0 -z-10"
+          className="pointer-events-none absolute inset-0 -z-10 hidden lg:block"
           aria-hidden
         >
           <div className="absolute right-[-5%] top-[12%] h-[28rem] w-[28rem] rounded-full bg-sky-300/30 blur-3xl" />
           <div className="absolute bottom-[5%] left-[-8%] h-[32rem] w-[32rem] rounded-full bg-cyan-200/40 blur-3xl" />
         </motion.div>
 
-        <div className="mx-auto grid w-full max-w-6xl gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center">
+        {/* Smartphone / tablette : texte en overlay sur la photo */}
+        <div className="mx-auto w-full max-w-md lg:hidden">
           <motion.div
-            className="order-1 lg:order-none"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden rounded-2xl border border-white/60 shadow-2xl shadow-sky-200/40"
+          >
+            <div className="relative min-h-[min(78svh,640px)] w-full">
+              <Image
+                src={assetUrl(settings.practitionerImage || "/practitioner.jpg")}
+                alt={`Portrait de ${settings.practitionerName}`}
+                fill
+                className="object-cover object-top"
+                sizes="100vw"
+                priority
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-sky-950/92 via-sky-900/45 to-sky-50/25"
+                aria-hidden
+              />
+              <div
+                className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/85 to-transparent"
+                aria-hidden
+              />
+              <div className="absolute inset-x-0 bottom-0 p-5 pb-6 sm:p-6">
+                <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-sky-200 sm:text-xs">
+                  {settings.title}
+                </p>
+                <h1 className="mt-2 font-serif text-[1.85rem] leading-tight text-white sm:text-4xl">
+                  {settings.practitionerName}
+                </h1>
+                <p className="mt-3 text-sm leading-snug text-sky-50/95 sm:text-base">
+                  {settings.heroTagline}
+                </p>
+                <p className="mt-2 text-xs text-sky-100/85 sm:text-sm">{settings.subtitle}</p>
+              </div>
+            </div>
+          </motion.div>
+          <div className="mt-6 flex w-full flex-col gap-3">
+            <DoctolibButton href={settings.doctolibUrl} className="doctolib-cta-full" />
+            <a
+              href="#cabinet"
+              className="inline-flex justify-center rounded-full border border-sky-200 bg-white/90 px-6 py-3 text-center font-medium text-sky-800"
+            >
+              Découvrir le cabinet
+            </a>
+          </div>
+        </div>
+
+        {/* Desktop : mise en page d’origine (inchangée) */}
+        <div className="mx-auto hidden w-full max-w-6xl gap-12 lg:grid lg:grid-cols-2 lg:items-center">
+          <motion.div
             style={
               heroMotion
                 ? { y: heroTextY, opacity: heroTextOpacity, willChange: "transform" }
@@ -123,30 +173,26 @@ export function HomePage({ settings, articles }: HomePageProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xs font-medium uppercase tracking-[0.14em] text-sky-600 sm:text-sm lg:tracking-[0.25em]">
+            <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-600">
               {settings.title}
             </p>
-            <h1 className="mt-3 font-serif text-[1.75rem] leading-tight text-slate-900 sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="mt-4 font-serif text-4xl leading-tight text-slate-900 md:text-5xl lg:text-6xl">
               {settings.practitionerName}
             </h1>
-            <p className="mt-4 max-w-lg text-base text-slate-600 sm:mt-6 sm:text-lg">{settings.heroTagline}</p>
-            <p className="mt-2 text-sm text-slate-500 sm:mt-3 sm:text-base">{settings.subtitle}</p>
-            <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-              <DoctolibButton href={settings.doctolibUrl} className="doctolib-cta-full lg:doctolib-cta-inline" />
+            <p className="mt-6 max-w-lg text-lg text-slate-600">{settings.heroTagline}</p>
+            <p className="mt-3 text-slate-500">{settings.subtitle}</p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <DoctolibButton href={settings.doctolibUrl} />
               <a
                 href="#cabinet"
-                className="inline-flex justify-center rounded-full border border-sky-200 bg-white/80 px-6 py-3 text-center font-medium text-sky-800 transition hover:bg-white max-lg:w-full"
+                className="inline-flex rounded-full border border-sky-200 bg-white/80 px-6 py-3 font-medium text-sky-800 transition hover:bg-white"
               >
                 Découvrir le cabinet
               </a>
             </div>
           </motion.div>
 
-          <ParallaxLayer
-            offset={200}
-            speed={1.4}
-            className="relative order-2 mx-auto w-full max-w-sm sm:max-w-md lg:order-none lg:max-w-none"
-          >
+          <ParallaxLayer offset={200} speed={1.4} className="relative w-full">
             <motion.div
               style={
                 heroMotion
@@ -159,21 +205,21 @@ export function HomePage({ settings, articles }: HomePageProps) {
                   : undefined
               }
             >
-              <div className="rounded-2xl border border-white/80 bg-white/60 p-3 shadow-2xl shadow-sky-200/50 backdrop-blur sm:rounded-[2rem] sm:p-4 lg:p-6">
+              <div className="rounded-[2rem] border border-white/80 bg-white/60 p-6 shadow-2xl shadow-sky-200/50 backdrop-blur">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sky-50">
                   <Image
                     src={assetUrl(settings.practitionerImage || "/practitioner.jpg")}
                     alt={`Portrait de ${settings.practitionerName}`}
                     fill
                     className="object-cover object-top"
-                    sizes="(max-width: 1024px) 100vw, 480px"
+                    sizes="480px"
                     priority
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-sky-950/75 via-sky-900/30 to-transparent p-6 pt-16">
                     <p className="text-xs uppercase tracking-widest text-sky-100">
                       Bures-sur-Yvette
                     </p>
-                    <p className="mt-2 font-serif text-base text-white sm:text-xl">
+                    <p className="mt-2 font-serif text-xl text-white">
                       Chirurgien Dentiste Implantologue
                     </p>
                   </div>
