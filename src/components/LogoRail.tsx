@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { assetUrl } from "@/lib/assetUrl";
 import { ParallaxFloat } from "./parallax/ParallaxFloat";
 
 export type LogoItem = {
@@ -27,7 +28,7 @@ export function LogoRail({ logos, title = "Partenaires & labels" }: LogoRailProp
           <li key={logo.src} className="opacity-80 transition hover:opacity-100">
             <ParallaxFloat speed={0.15 + index * 0.05} distance={80}>
               <Image
-                src={logo.src}
+                src={assetUrl(logo.src)}
                 alt={logo.alt}
                 width={160}
                 height={64}

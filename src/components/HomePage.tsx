@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import { assetUrl } from "@/lib/assetUrl";
 import type { Article, SiteSettings } from "@/lib/types";
 import { ArticlesSection } from "./ArticlesSection";
 import { DoctolibButton } from "./DoctolibButton";
@@ -144,7 +145,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
               <div className="rounded-[2rem] border border-white/80 bg-white/60 p-4 shadow-2xl shadow-sky-200/50 backdrop-blur sm:p-6">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sky-50">
                   <Image
-                    src={settings.practitionerImage || "/practitioner.jpg"}
+                    src={assetUrl(settings.practitionerImage || "/practitioner.jpg")}
                     alt={`Portrait de ${settings.practitionerName}`}
                     fill
                     className="object-cover object-top"

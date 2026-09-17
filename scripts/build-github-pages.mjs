@@ -38,11 +38,14 @@ const repoName =
   process.env.NEXT_PUBLIC_REPO_NAME ??
   "NewItem";
 
+const basePath = `/${repoName}`;
+
 const env = {
   ...process.env,
   GITHUB_PAGES: "true",
   NEXT_PUBLIC_STATIC_PREVIEW: "true",
   NEXT_PUBLIC_REPO_NAME: repoName,
+  NEXT_PUBLIC_BASE_PATH: basePath,
 };
 
 try {
