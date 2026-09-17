@@ -53,12 +53,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
               </a>
             ))}
           </nav>
-          <DoctolibButton
-            href={settings.doctolibUrl}
-            className="!px-3 !py-2 text-sm max-md:!text-xs max-md:!px-2"
-          >
-            Doctolib
-          </DoctolibButton>
+          <DoctolibButton href={settings.doctolibUrl} />
         </div>
       </header>
 
@@ -215,7 +210,9 @@ export function HomePage({ settings, articles }: HomePageProps) {
                 ) : null}
                 <li>{settings.openingHours}</li>
               </ul>
-              <DoctolibButton href={settings.doctolibUrl} className="mt-10" />
+              <div className="mt-10">
+                <DoctolibButton href={settings.doctolibUrl} />
+              </div>
             </div>
             <div className="relative min-h-[280px] bg-sky-900/30 p-6 lg:min-h-0">
               <iframe
