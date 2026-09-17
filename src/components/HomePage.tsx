@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import type { Article, SiteSettings } from "@/lib/types";
 import { ArticlesSection } from "./ArticlesSection";
+import { DoctolibButton } from "./DoctolibButton";
 import { ParallaxLayer } from "./ParallaxLayer";
 
 type HomePageProps = {
@@ -52,14 +53,12 @@ export function HomePage({ settings, articles }: HomePageProps) {
               </a>
             ))}
           </nav>
-          <a
+          <DoctolibButton
             href={settings.doctolibUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-md shadow-sky-200 transition hover:bg-sky-700"
+            className="!px-3 !py-2 text-sm max-md:!text-xs max-md:!px-2"
           >
             Doctolib
-          </a>
+          </DoctolibButton>
         </div>
       </header>
 
@@ -91,14 +90,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
             <p className="mt-6 max-w-lg text-lg text-slate-600">{settings.heroTagline}</p>
             <p className="mt-3 text-slate-500">{settings.subtitle}</p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <a
-                href={settings.doctolibUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 font-medium text-white shadow-lg shadow-sky-200/80 transition hover:bg-sky-700"
-              >
-                Prendre rendez-vous sur Doctolib
-              </a>
+              <DoctolibButton href={settings.doctolibUrl} />
               <a
                 href="#cabinet"
                 className="inline-flex rounded-full border border-sky-200 bg-white/80 px-6 py-3 font-medium text-sky-800 transition hover:bg-white"
@@ -223,14 +215,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
                 ) : null}
                 <li>{settings.openingHours}</li>
               </ul>
-              <a
-                href={settings.doctolibUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-10 inline-flex rounded-full bg-white px-6 py-3 font-medium text-sky-800 transition hover:bg-sky-50"
-              >
-                Réserver sur Doctolib
-              </a>
+              <DoctolibButton href={settings.doctolibUrl} className="mt-10" />
             </div>
             <div className="relative min-h-[280px] bg-sky-900/30 p-6 lg:min-h-0">
               <iframe
