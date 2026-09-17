@@ -1,24 +1,37 @@
 # Site vitrine — Dr Cristina Spanu
 
-Site one-page pour une chirurgien-dentiste implantologue : parallaxe au scroll, palette claire et bleu médical, prise de rendez-vous Doctolib, espace admin pour les informations du cabinet et jusqu'à 5 articles en vedette (liste à gauche, contenu à droite).
+Site one-page pour une chirurgien-dentiste implantologue : parallaxe au scroll, palette claire, Doctolib, articles en vedette.
 
-## Démarrage
+## Aperçu client (GitHub Pages)
+
+Après activation de **Pages** dans le dépôt GitHub (*Settings → Pages → Source : GitHub Actions*), le site est publié à :
+
+**https://jec-tech-papp.github.io/NewItem/**
+
+Chaque push sur `main` (ou la branche configurée dans le workflow) reconstruit la vitrine à partir des fichiers `data/*.json`. L’espace admin n’est **pas** disponible sur Pages (réservé au travail en local).
+
+## Développement sur votre PC
 
 ```bash
 npm install
 npm run dev
 ```
 
-Ouvrir [http://localhost:3000](http://localhost:3000). Administration : [http://localhost:3000/admin](http://localhost:3000/admin).
+- Site : http://localhost:3000  
+- Admin : http://localhost:3000/admin (mot de passe par défaut `admin-spanu-demo`, variable `ADMIN_PASSWORD` en option)
 
-## Admin
+Pour tester le build Pages en local :
 
-- Mot de passe par défaut : `admin-spanu-demo` (à remplacer via la variable d'environnement `ADMIN_PASSWORD`).
-- Modifier nom, coordonnées, URL Doctolib, textes.
-- Créer / éditer des articles ; cocher « en vedette » pour l'accueil (maximum 5).
+```bash
+npm run build:pages
+npx serve out
+```
 
-## Production
+(Ouvrir l’URL indiquée avec le préfixe `/NewItem` si besoin.)
 
-Définir `ADMIN_PASSWORD` et remplacer l'URL Doctolib dans l'admin par le lien direct de la fiche praticien (boutons et iframe de la section contact).
+## Données
 
-Les données sont stockées dans `data/settings.json` et `data/articles.json`.
+- `data/settings.json` — coordonnées, textes, URL Doctolib  
+- `data/articles.json` — articles (max 5 en vedette sur l’accueil)
+
+Modifiez ces fichiers en local via l’admin, puis commitez pour mettre à jour l’aperçu GitHub Pages.

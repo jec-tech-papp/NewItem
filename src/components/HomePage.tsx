@@ -254,9 +254,11 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <footer className="border-t border-sky-100 bg-white/80 px-6 py-10 text-center text-sm text-slate-500">
         <p>{settings.practitionerName} — {settings.title}</p>
-        <p className="mt-2">
-          <a href="/admin" className="text-sky-600 hover:underline">Espace admin</a>
-        </p>
+        {process.env.NEXT_PUBLIC_STATIC_PREVIEW !== "true" && (
+          <p className="mt-2">
+            <a href="/admin" className="text-sky-600 hover:underline">Espace admin</a>
+          </p>
+        )}
       </footer>
     </div>
   );
