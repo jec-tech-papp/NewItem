@@ -22,6 +22,7 @@ const settingsSchema = z.object({
   expertiseEsthetique: z.string(),
   openingHours: z.string(),
   practitionerImage: z.string(),
+  logoUrl: z.string(),
 });
 
 export async function GET() {

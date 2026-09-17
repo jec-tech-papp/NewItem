@@ -17,6 +17,7 @@ export interface SiteSettings {
   expertiseEsthetique: string;
   openingHours: string;
   practitionerImage: string;
+  logoUrl: string;
 }
 
 export interface Article {

@@ -222,6 +222,7 @@ export default function AdminPage() {
                 ["doctolibUrl", "URL Doctolib"],
                 ["openingHours", "Horaires"],
                 ["practitionerImage", "Photo (chemin public, ex. /practitioner.jpg)"],
+                ["logoUrl", "Logo (chemin public, ex. /logos/spanu-logo.png)"],
               ] as const
             ).map(([key, label]) => (
               <label key={key} className="block text-sm">

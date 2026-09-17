@@ -69,9 +69,17 @@ export function HomePage({ settings, articles }: HomePageProps) {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
           <a
             href="#accueil"
-            className="min-w-0 flex-1 font-serif text-base leading-tight text-slate-800 sm:text-lg lg:flex-none"
+            className="flex min-w-0 flex-1 items-center lg:flex-none"
+            aria-label={settings.practitionerName}
           >
-            <span className="line-clamp-2 lg:line-clamp-none">{settings.practitionerName}</span>
+            <Image
+              src={assetUrl(settings.logoUrl || "/logos/spanu-logo.png")}
+              alt={`Logo ${settings.practitionerName}`}
+              width={767}
+              height={325}
+              className="h-9 w-auto max-w-[min(52vw,220px)] object-contain object-left sm:h-11 lg:h-12"
+              priority
+            />
           </a>
           <nav className="hidden items-center gap-6 text-sm text-slate-600 lg:flex">
             {navItems.map((item) => (
@@ -384,6 +392,13 @@ export function HomePage({ settings, articles }: HomePageProps) {
       <MobileNav doctolibUrl={settings.doctolibUrl} />
 
       <footer className="relative border-t border-sky-100 bg-white/80 px-4 py-8 text-center text-xs text-slate-500 sm:px-6 sm:py-10 sm:text-sm">
+        <Image
+          src={assetUrl(settings.logoUrl || "/logos/spanu-logo.png")}
+          alt=""
+          width={767}
+          height={325}
+          className="mx-auto mb-4 h-8 w-auto opacity-90"
+        />
         <p>{settings.practitionerName} — {settings.title}</p>
         {process.env.NEXT_PUBLIC_STATIC_PREVIEW !== "true" && (
           <p className="mt-2">
