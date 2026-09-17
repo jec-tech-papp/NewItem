@@ -14,9 +14,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Dr Cristina Spanu | Chirurgien-dentiste implantologue",
+  title: "Dr Cristina Spanu | Chirurgien Dentiste Implantologue",
   description:
-    "Dr Cristina Spanu, chirurgien-dentiste à Bures-sur-Yvette. Implantologie, chirurgie buccale, parodontie. Prenez rendez-vous sur Doctolib.",
+    "Dr Cristina Spanu, Chirurgien Dentiste Implantologue à Bures-sur-Yvette. Implantologie, chirurgie buccale, parodontie. Prenez rendez-vous sur Doctolib.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

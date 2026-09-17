@@ -111,7 +111,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
                     Bures-sur-Yvette
                   </p>
                   <p className="mt-2 font-serif text-xl text-white">
-                    Implantologie &amp; chirurgie buccale
+                    Chirurgien Dentiste Implantologue
                   </p>
                 </div>
               </div>
