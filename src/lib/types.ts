@@ -8,7 +8,13 @@ export interface SiteSettings {
   city: string;
   doctolibUrl: string;
   heroTagline: string;
-  aboutText: string;
+  aboutIntro: string;
+  welcomeText: string;
+  mutuellesText: string;
+  emergencyText: string;
+  expertiseParodontie: string;
+  expertiseImplant: string;
+  expertiseEsthetique: string;
   openingHours: string;
   practitionerImage: string;
 }

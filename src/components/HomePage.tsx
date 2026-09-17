@@ -252,20 +252,25 @@ export function HomePage({ settings, articles }: HomePageProps) {
         </div>
 
         <div className="mx-auto w-full max-w-6xl">
-          <div className="grid w-full gap-8 rounded-2xl border border-sky-100/90 bg-white/85 px-5 py-10 shadow-2xl shadow-sky-100/60 backdrop-blur-md sm:gap-12 sm:rounded-[2.5rem] sm:px-8 sm:py-16 md:grid-cols-2 md:items-center md:px-14">
+          <div className="grid w-full gap-8 rounded-2xl border border-sky-100/90 bg-white/85 px-5 py-10 shadow-2xl shadow-sky-100/60 backdrop-blur-md sm:gap-12 sm:rounded-[2.5rem] sm:px-8 sm:py-16 md:grid-cols-2 md:items-start md:px-14">
             <ParallaxColumn progress={cabinetProgress} direction={-1}>
                 <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
                   Un cabinet pensé pour votre sérénité
                 </h2>
-                <p className="mt-6 leading-relaxed text-slate-600">{settings.aboutText}</p>
+                <p className="mt-6 leading-relaxed text-slate-600">{settings.aboutIntro}</p>
+                <p className="mt-4 leading-relaxed text-slate-600">{settings.welcomeText}</p>
               </ParallaxColumn>
               <ParallaxColumn progress={cabinetProgress} direction={1}>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-1">
                   {[
-                    { label: "Hygiène & stérilisation", desc: "Protocoles stricts, matériel moderne." },
-                    { label: "Écoute", desc: "Temps d'échange à chaque consultation." },
-                    { label: "Technologie", desc: "Imagerie et planification 3D." },
-                    { label: "Douceur", desc: "Soins adaptés à votre confort." },
+                    {
+                      label: "Mutuelles & devis",
+                      desc: settings.mutuellesText,
+                    },
+                    {
+                      label: "Confort & écoute",
+                      desc: "Un cadre moderne et chaleureux, avec un temps d'échange à chaque consultation.",
+                    },
                   ].map((card, i) => (
                     <ParallaxFloat key={card.label} speed={0.2 + i * 0.08} distance={100}>
                       <div className="rounded-2xl border border-sky-50 bg-sky-50/40 p-5">
@@ -291,16 +296,16 @@ export function HomePage({ settings, articles }: HomePageProps) {
         <div className="mx-auto mt-10 grid max-w-6xl gap-4 sm:mt-14 sm:gap-6 md:grid-cols-3">
           {[
             {
-              title: "Implantologie",
-              text: "Implants dentaires, prothèses sur implant et réhabilitations fixes.",
+              title: "Parodontologie",
+              text: settings.expertiseParodontie,
             },
             {
-              title: "Chirurgie buccale",
-              text: "Extractions, greffes et actes chirurgicaux avec imagerie 3D (cone beam).",
+              title: "Prothèse sur implant",
+              text: settings.expertiseImplant,
             },
             {
-              title: "Parodontie",
-              text: "Prise en charge des gencives et du parodonte pour préserver votre sourire.",
+              title: "Esthétique dentaire",
+              text: settings.expertiseEsthetique,
             },
           ].map((item, i) => (
             <ParallaxLayer key={item.title} offset={100 + i * 40} speed={0.8 + i * 0.15}>
@@ -348,6 +353,9 @@ export function HomePage({ settings, articles }: HomePageProps) {
                 ) : null}
                 <li>{settings.openingHours}</li>
               </ul>
+              <p className="mt-6 rounded-xl bg-sky-800/40 p-4 text-sm leading-relaxed text-sky-50/95">
+                {settings.emergencyText}
+              </p>
               <div className="mt-8 sm:mt-10">
                 <DoctolibButton href={settings.doctolibUrl} className="doctolib-cta-full lg:doctolib-cta-inline" />
               </div>

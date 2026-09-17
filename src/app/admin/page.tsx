@@ -233,15 +233,27 @@ export default function AdminPage() {
                 />
               </label>
             ))}
-            <label className="block text-sm">
-              <span className="font-medium text-slate-700">Texte « À propos »</span>
-              <textarea
-                value={settings.aboutText}
-                onChange={(e) => setSettings({ ...settings, aboutText: e.target.value })}
-                rows={5}
-                className="mt-1 w-full rounded-xl border border-sky-100 px-4 py-2"
-              />
-            </label>
+            {(
+              [
+                ["aboutIntro", "Présentation (cabinet)"],
+                ["welcomeText", "Texte d'accueil"],
+                ["mutuellesText", "Mutuelles & devis"],
+                ["emergencyText", "Urgences dentaires"],
+                ["expertiseParodontie", "Expertise — Parodontologie"],
+                ["expertiseImplant", "Expertise — Prothèse sur implant"],
+                ["expertiseEsthetique", "Expertise — Esthétique"],
+              ] as const
+            ).map(([key, label]) => (
+              <label key={key} className="block text-sm">
+                <span className="font-medium text-slate-700">{label}</span>
+                <textarea
+                  value={settings[key]}
+                  onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}
+                  rows={4}
+                  className="mt-1 w-full rounded-xl border border-sky-100 px-4 py-2"
+                />
+              </label>
+            ))}
             <button type="submit" className="rounded-full bg-sky-600 px-6 py-2 text-white">
               Enregistrer
             </button>
