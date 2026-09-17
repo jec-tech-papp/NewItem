@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import { useRef } from "react";
 import { assetUrl } from "@/lib/assetUrl";
+import { googleMapsDirectionsUrl } from "@/lib/mapsUrl";
 import type { Article, SiteSettings } from "@/lib/types";
 import { ArticlesSection } from "./ArticlesSection";
 import { DoctolibButton } from "./DoctolibButton";
@@ -345,8 +346,18 @@ export function HomePage({ settings, articles }: HomePageProps) {
             <ParallaxFloat speed={0.3} distance={140} className="p-6 sm:p-10 md:p-14">
               <h2 className="font-serif text-3xl md:text-4xl">Nous contacter</h2>
               <ul className="mt-8 space-y-4 text-sky-50/95">
-                <li>{settings.address}</li>
-                <li>{settings.city}</li>
+                <li>
+                  <p>{settings.address}</p>
+                  <p>{settings.city}</p>
+                  <a
+                    href={googleMapsDirectionsUrl(settings.address, settings.city)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-white/50 bg-white/15 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/25"
+                  >
+                    S&apos;y rendre
+                  </a>
+                </li>
                 <li>
                   <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="hover:underline">
                     {settings.phone}
