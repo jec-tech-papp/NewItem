@@ -47,7 +47,7 @@ const env = {
 
 try {
   await hideRoutes();
-  execSync("next build", { stdio: "inherit", env, cwd: root });
+  execSync("npx next build", { stdio: "inherit", env, cwd: root });
 } finally {
   await restoreRoutes();
 }

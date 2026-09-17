@@ -4,7 +4,7 @@ Site one-page pour une chirurgien-dentiste implantologue : parallaxe au scroll, 
 
 ## Aperçu client (GitHub Pages)
 
-Après activation de **Pages** dans le dépôt GitHub (*Settings → Pages → Source : GitHub Actions*), le site est publié à :
+Dans le dépôt GitHub : **Settings → Pages → Build and deployment → Source : GitHub Actions** (pas « Deploy from a branch »). Une fois le workflow vert, le site est à :
 
 **https://jec-tech-papp.github.io/NewItem/**
 
