@@ -7,41 +7,36 @@ import { useDesktopEffects } from "@/hooks/useMediaQuery";
 
 type LogoParallaxBackdropProps = {
   logoUrl: string;
-  alt: string;
 };
 
 /**
- * Desktop : logo en filigrane (~70 % de transparence, opacité 30 %),
- * ancré à droite en bas au chargement, remonte au scroll.
+ * Desktop uniquement : filigrane ~70 % transparent, bas-droite → haut au scroll (adapté 4K / hauteur fenêtre).
  */
-export function LogoParallaxBackdrop({ logoUrl, alt }: LogoParallaxBackdropProps) {
+export function LogoParallaxBackdrop({ logoUrl }: LogoParallaxBackdropProps) {
   const desktop = useDesktopEffects();
   const reduceMotion = useReducedMotion();
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
 
-  const y = useTransform(scrollY, [0, 2200], [0, -720]);
-  const subtleRotate = useTransform(scrollY, [0, 2200], [0, -6]);
+  const top = useTransform(scrollYProgress, [0, 1], ["68vh", "5vh"]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.04, 1.08]);
 
   if (!desktop || reduceMotion) return null;
 
   return (
-    <div
-      className="pointer-events-none fixed inset-0 z-[1] hidden overflow-hidden lg:block"
+    <motion.div
+      className="pointer-events-none fixed right-[2.5%] z-[1] hidden w-[min(36vw,640px)] opacity-30 lg:block"
+      style={{ top, rotate, scale }}
       aria-hidden
     >
-      <motion.div
-        style={{ y, rotate: subtleRotate }}
-        className="absolute bottom-[6%] right-[3%] w-[min(42vw,520px)] max-w-none opacity-30"
-      >
-        <Image
-          src={assetUrl(logoUrl)}
-          alt=""
-          width={767}
-          height={325}
-          className="h-auto w-full object-contain object-right"
-          priority={false}
-        />
-      </motion.div>
-    </div>
+      <Image
+        src={assetUrl(logoUrl)}
+        alt=""
+        width={767}
+        height={325}
+        className="h-auto w-full object-contain object-right"
+        priority={false}
+      />
+    </motion.div>
   );
 }

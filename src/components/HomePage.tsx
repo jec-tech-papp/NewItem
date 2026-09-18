@@ -67,10 +67,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
   return (
     <div className="relative overflow-x-hidden bg-[#f4f9fc] text-slate-800">
       <ParallaxBackdrop />
-      <LogoParallaxBackdrop
-        logoUrl={settings.logoUrl || "/logos/spanu-logo.png"}
-        alt={settings.practitionerName}
-      />
+      <LogoParallaxBackdrop logoUrl={settings.logoUrl || "/logos/spanu-logo.png"} />
 
       <div className="relative z-[2]">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 bg-white/70 pt-[env(safe-area-inset-top)] backdrop-blur-md">
@@ -258,7 +255,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
         ref={cabinetRef}
         className="relative z-10 -mt-8 px-4 pb-20 pt-6 sm:px-6 sm:pb-28 sm:pt-8 lg:-mt-24"
       >
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
           <ParallaxFloat speed={0.35} distance={160} className="absolute -left-32 top-20">
             <div className="h-64 w-64 rounded-full bg-sky-100/60 blur-2xl" />
           </ParallaxFloat>
@@ -345,7 +342,10 @@ export function HomePage({ settings, articles }: HomePageProps) {
         id="contact"
         className="px-4 pb-8 pt-6 sm:px-6 sm:pb-12 sm:pt-8"
         background={
-          <div className="absolute inset-x-0 top-1/4 h-1/2 bg-gradient-to-b from-sky-200/20 to-transparent" />
+          <div
+            className="absolute inset-[-30%] bg-[radial-gradient(ellipse_100%_60%_at_50%_100%,rgba(186,230,253,0.12),transparent_70%)]"
+            aria-hidden
+          />
         }
       >
         <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-sky-700 to-cyan-800 text-white shadow-2xl sm:rounded-[2.5rem]">
