@@ -41,7 +41,14 @@ Modifiez ces fichiers en local via l’admin, puis commitez pour mettre à jour 
 - Diaporama (section contact) : `public/images/cabinet/01.png`, `02.png`, `03.png`
 - Logo : `public/logos/spanu-logo.png`
 
+## SEO
+
+- Métadonnées (titre, description, Open Graph, Twitter) générées depuis `data/settings.json`
+- Données structurées Schema.org (`Dentist`, `WebSite`, articles) dans la page d’accueil
+- `sitemap.xml` et `robots.txt` générés au build
+- En production, définir **`NEXT_PUBLIC_SITE_URL`** (ex. `https://www.votredomaine.fr`) pour l’URL canonique et le JSON-LD ; le build GitHub Pages le renseigne automatiquement
+
 ## Hébergement OVH (après validation)
 
-- **Mutualisé (statique)** : `npm run build:pages` → déployer le dossier `out/` en FTP.
+- **Mutualisé (statique)** : `npm run build:pages` avec `NEXT_PUBLIC_SITE_URL=https://votre-domaine.fr` → déployer le dossier `out/` en FTP.
 - **VPS / Cloud (Node.js)** : `npm run build` + `npm start` (PM2), `ADMIN_PASSWORD`, sauvegarde de `data/`.
