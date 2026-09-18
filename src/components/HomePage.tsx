@@ -16,6 +16,7 @@ import { CabinetSlideshow } from "./CabinetSlideshow";
 import { DoctolibButton } from "./DoctolibButton";
 import { LogoRail } from "./LogoRail";
 import { ParallaxLayer } from "./ParallaxLayer";
+import { LogoParallaxBackdrop } from "./parallax/LogoParallaxBackdrop";
 import { ParallaxBackdrop } from "./parallax/ParallaxBackdrop";
 import { ParallaxColumn, ParallaxSection } from "./parallax/ParallaxSection";
 import { ParallaxFloat } from "./parallax/ParallaxFloat";
@@ -66,9 +67,14 @@ export function HomePage({ settings, articles }: HomePageProps) {
   return (
     <div className="relative overflow-x-hidden bg-[#f4f9fc] text-slate-800">
       <ParallaxBackdrop />
+      <LogoParallaxBackdrop
+        logoUrl={settings.logoUrl || "/logos/spanu-logo.png"}
+        alt={settings.practitionerName}
+      />
 
+      <div className="relative z-[2]">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 bg-white/70 pt-[env(safe-area-inset-top)] backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 lg:py-5">
           <a
             href="#accueil"
             className="flex min-w-0 flex-1 items-center lg:flex-none"
@@ -79,7 +85,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
               alt={`Logo ${settings.practitionerName}`}
               width={767}
               height={325}
-              className="h-9 w-auto max-w-[min(52vw,220px)] object-contain object-left sm:h-11 lg:h-12"
+              className="h-9 w-auto max-w-[min(52vw,220px)] object-contain object-left sm:h-11 lg:h-[4.5rem] lg:max-w-[min(48vw,330px)]"
               priority
             />
           </a>
@@ -410,6 +416,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
           </p>
         )}
       </footer>
+      </div>
     </div>
   );
 }
