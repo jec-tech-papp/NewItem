@@ -35,3 +35,13 @@ npx serve out
 - `data/articles.json` — articles (max 5 en vedette sur l’accueil)
 
 Modifiez ces fichiers en local via l’admin, puis commitez pour mettre à jour l’aperçu GitHub Pages.
+
+## Images
+
+- Diaporama (section contact) : `public/images/cabinet/01.jpg`, `02.jpg`, `03.jpg`
+- Logo : `public/logos/spanu-logo.png`
+
+## Hébergement OVH (après validation)
+
+- **Mutualisé (statique)** : `npm run build:pages` → déployer le dossier `out/` en FTP.
+- **VPS / Cloud (Node.js)** : `npm run build` + `npm start` (PM2), `ADMIN_PASSWORD`, sauvegarde de `data/`.

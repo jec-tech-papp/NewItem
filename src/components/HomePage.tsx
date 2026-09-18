@@ -12,6 +12,7 @@ import { assetUrl } from "@/lib/assetUrl";
 import { googleMapsDirectionsUrl } from "@/lib/mapsUrl";
 import type { Article, SiteSettings } from "@/lib/types";
 import { ArticlesSection } from "./ArticlesSection";
+import { CabinetSlideshow } from "./CabinetSlideshow";
 import { DoctolibButton } from "./DoctolibButton";
 import { LogoRail } from "./LogoRail";
 import { ParallaxLayer } from "./ParallaxLayer";
@@ -382,17 +383,9 @@ export function HomePage({ settings, articles }: HomePageProps) {
             <ParallaxFloat
               speed={0.55}
               distance={200}
-              className="relative min-h-[240px] bg-sky-900/30 p-4 sm:min-h-[280px] sm:p-6 lg:min-h-0"
+              className="relative min-h-[280px] p-4 sm:min-h-[320px] sm:p-6 lg:min-h-[320px]"
             >
-              <iframe
-                title="Prise de rendez-vous Doctolib"
-                src={settings.doctolibUrl}
-                className="h-full min-h-[260px] w-full rounded-xl border-0 bg-white shadow-inner sm:min-h-[320px] sm:rounded-2xl lg:absolute lg:inset-6 lg:min-h-0 lg:w-[calc(100%-3rem)]"
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-              />
-              <p className="mt-3 text-center text-xs text-sky-100/80 lg:absolute lg:bottom-2 lg:left-0 lg:right-0">
-                Si l&apos;agenda ne s&apos;affiche pas, utilisez le bouton ci-dessus.
-              </p>
+              <CabinetSlideshow />
             </ParallaxFloat>
           </div>
         </div>
