@@ -38,7 +38,7 @@ Modifiez ces fichiers en local via l’admin, puis commitez pour mettre à jour 
 
 ## Images
 
-- Diaporama (section contact) : `public/images/cabinet/01.jpg`, `02.jpg`, `03.jpg`
+- Diaporama (section contact) : `public/images/cabinet/01.png`, `02.png`, `03.png`
 - Logo : `public/logos/spanu-logo.png`
 
 ## Hébergement OVH (après validation)

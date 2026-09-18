@@ -10,20 +10,20 @@ export type CabinetSlide = {
   caption?: string;
 };
 
-/** Remplacer les fichiers dans /public/images/cabinet/ (01.jpg, 02.jpg, …) */
+/** Fichiers dans /public/images/cabinet/ (01.png, 02.png, …) */
 export const CABINET_SLIDES: CabinetSlide[] = [
   {
-    src: "/images/cabinet/01.jpg",
+    src: "/images/cabinet/01.png",
     alt: "Cabinet — espace d'accueil",
     caption: "Un espace d'accueil lumineux et apaisant",
   },
   {
-    src: "/images/cabinet/02.jpg",
+    src: "/images/cabinet/02.png",
     alt: "Cabinet — salle de soins",
     caption: "Des équipements modernes pour votre confort",
   },
   {
-    src: "/images/cabinet/03.jpg",
+    src: "/images/cabinet/03.png",
     alt: "Cabinet — détail",
     caption: "Un cadre pensé pour votre sérénité",
   },
