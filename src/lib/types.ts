@@ -1,0 +1,33 @@
+export interface SiteSettings {
+  practitionerName: string;
+  title: string;
+  subtitle: string;
+  phone: string;
+  email: string;
+  address: string;
+  city: string;
+  doctolibUrl: string;
+  heroTagline: string;
+  aboutIntro: string;
+  welcomeText: string;
+  mutuellesText: string;
+  emergencyText: string;
+  expertiseParodontie: string;
+  expertiseImplant: string;
+  expertiseEsthetique: string;
+  openingHours: string;
+  practitionerImage: string;
+  logoUrl: string;
+}
+
+export interface Article {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  featured: boolean;
+  order: number;
+  createdAt: string;
+}
+
+export const MAX_FEATURED_ARTICLES = 5;

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "art-1",
+    "title": "Comprendre la pose d'implant",
+    "excerpt": "Les étapes clés d'un traitement implantaire, de la consultation à la pose de la couronne.",
+    "content": "La pose d'un implant dentaire se déroule en plusieurs rendez-vous espacés pour permettre une cicatrisation optimale. Après une évaluation radiologique et un plan de traitement personnalisé, l'implant est inséré dans l'os sous anesthésie locale. Une période d'ostéo-intégration suit, puis la prothèse définitive est posée. Le Dr Spanu vous accompagne à chaque étape avec des explications claires et un suivi attentif.",
+    "featured": true,
+    "order": 0,
+    "createdAt": "2026-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "art-2",
+    "title": "Implant ou bridge : que choisir ?",
+    "excerpt": "Comparer les solutions pour remplacer une ou plusieurs dents manquantes.",
+    "content": "L'implant préserve les dents adjacentes et stimule l'os, ce qui en fait souvent la solution la plus durable. Le bridge conventionnel peut convenir lorsque la dentition voisine est déjà restaurée. Lors de la consultation, nous analysons votre santé bucco-dentaire, vos attentes esthétiques et votre budget pour proposer la solution la plus adaptée.",
+    "featured": true,
+    "order": 1,
+    "createdAt": "2026-02-01T10:00:00.000Z"
+  },
+  {
+    "id": "art-3",
+    "title": "Bien préparer sa chirurgie",
+    "excerpt": "Conseils pratiques la veille et le jour de l'intervention.",
+    "content": "Évitez l'alcool et le tabac dans les jours précédents, prenez vos médicaments habituels sauf avis contraire, et prévoyez un accompagnant si une sédation est envisagée. Un jeûne léger peut être demandé selon le type d'intervention. N'hésitez pas à poser toutes vos questions lors du rendez-vous pré-opératoire.",
+    "featured": true,
+    "order": 2,
+    "createdAt": "2026-03-10T10:00:00.000Z"
+  }
+]
