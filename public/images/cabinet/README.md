@@ -1,9 +1,14 @@
-# Photos du cabinet (diaporama contact)
+# Photos du cabinet (diaporama)
 
-Fichiers attendus :
+**Affichage rapide :** le site utilise les fichiers **WebP** (`01.webp`, `02.webp`, `03.webp`).
 
-- `01.png`
-- `02.png`
-- `03.png`
+Après remplacement des PNG :
 
-Pour modifier les légendes : `src/components/CabinetSlideshow.tsx` (`CABINET_SLIDES`).
+```bash
+npm run optimize:cabinet
+```
+
+Puis commitez les `.webp` générés.
+
+- `01.png`, `02.png`, `03.png` — sources haute qualité  
+- Légendes : `src/components/CabinetSlideshow.tsx`

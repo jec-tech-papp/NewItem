@@ -25,9 +25,16 @@ export const metadata: Metadata = {
     "Dr Cristina Spanu, chirurgien-dentiste à Bures-sur-Yvette. Parodontologie, prothèse sur implant, esthétique dentaire. Prenez rendez-vous sur Doctolib.",
 };
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const cabinetHeroPreload = `${basePath}/images/cabinet/01.webp`;
+
   return (
     <html lang="fr" className={`${dmSans.variable} ${cormorant.variable} h-full`}>
+      <head>
+        <link rel="preload" as="image" href={cabinetHeroPreload} type="image/webp" />
+      </head>
       <body className="min-h-full antialiased">{children}</body>
     </html>
   );

@@ -7,12 +7,13 @@ import {
   useTransform,
 } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { prefetchImages } from "@/lib/prefetchImages";
 import { assetUrl } from "@/lib/assetUrl";
 import { googleMapsDirectionsUrl } from "@/lib/mapsUrl";
 import type { Article, SiteSettings } from "@/lib/types";
 import { ArticlesSection } from "./ArticlesSection";
-import { CabinetSlideshow } from "./CabinetSlideshow";
+import { CABINET_SLIDES, CabinetSlideshow } from "./CabinetSlideshow";
 import { DoctolibButton } from "./DoctolibButton";
 import { LogoRail } from "./LogoRail";
 import { ParallaxLayer } from "./ParallaxLayer";
@@ -63,6 +64,10 @@ export function HomePage({ settings, articles }: HomePageProps) {
   const heroImageScale = useTransform(scrollY, [0, 600], [1, 1.14]);
   const heroImageRotate = useTransform(scrollY, [0, 800], [0, -4]);
   const heroOverlayOpacity = useTransform(heroProgress, [0, 1], [1, 0.15]);
+
+  useEffect(() => {
+    prefetchImages(CABINET_SLIDES.map((s) => s.src));
+  }, []);
 
   return (
     <div className="relative overflow-x-hidden bg-[#f4f9fc] text-slate-800">
