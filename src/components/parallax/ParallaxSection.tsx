@@ -7,7 +7,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useRef, type ReactNode } from "react";
+import { useRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { useDesktopEffects } from "@/hooks/useMediaQuery";
 
 type ParallaxSectionProps = {
@@ -15,7 +15,7 @@ type ParallaxSectionProps = {
   className?: string;
   id?: string;
   background?: ReactNode;
-};
+} & ComponentPropsWithoutRef<"section">;
 
 /**
  * Parallaxe légère sur le fond uniquement — le contenu reste centré (pas de scale/opacity).
@@ -25,6 +25,7 @@ export function ParallaxSection({
   className = "",
   id,
   background,
+  ...sectionProps
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
@@ -37,7 +38,7 @@ export function ParallaxSection({
   const bgY = useTransform(scrollYProgress, [0, 1], [80, -120]);
 
   return (
-    <section id={id} ref={ref} className={`relative ${className}`}>
+    <section id={id} ref={ref} className={`relative ${className}`} {...sectionProps}>
       {background ? (
         desktopEffects && !reduceMotion ? (
           <motion.div

@@ -5,24 +5,30 @@ import "./globals.css";
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#0369a1",
 };
 
 export const metadata: Metadata = {
-  title: "Dr Cristina Spanu | Chirurgien-dentiste à Bures-sur-Yvette",
-  description:
-    "Dr Cristina Spanu, chirurgien-dentiste à Bures-sur-Yvette. Parodontologie, prothèse sur implant, esthétique dentaire. Prenez rendez-vous sur Doctolib.",
+  manifest: "/site.webmanifest",
+  formatDetection: {
+    telephone: true,
+    email: false,
+    address: true,
+  },
 };
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";

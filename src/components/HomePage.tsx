@@ -71,10 +71,15 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
   return (
     <div className="relative overflow-x-hidden bg-[#f4f9fc] text-slate-800">
+      <main id="contenu" className="contents">
       <ParallaxBackdrop />
       <LogoParallaxBackdrop logoUrl={settings.logoUrl || "/logos/spanu-logo.png"} />
 
       <div className="relative z-[2]">
+      <h1 className="sr-only">
+        {settings.practitionerName} — {settings.title} à Bures-sur-Yvette (91440).{" "}
+        {settings.subtitle}
+      </h1>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/40 bg-white/70 pt-[env(safe-area-inset-top)] backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 lg:py-5">
           <a
@@ -91,7 +96,10 @@ export function HomePage({ settings, articles }: HomePageProps) {
               priority
             />
           </a>
-          <nav className="hidden items-center gap-6 text-sm text-slate-600 lg:flex">
+          <nav
+            className="hidden items-center gap-6 text-sm text-slate-600 lg:flex"
+            aria-label="Navigation principale"
+          >
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -150,9 +158,9 @@ export function HomePage({ settings, articles }: HomePageProps) {
                 <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-sky-200 sm:text-xs">
                   {settings.title}
                 </p>
-                <h1 className="mt-2 font-serif text-[1.85rem] leading-tight text-white sm:text-4xl">
+                <p className="mt-2 font-serif text-[1.85rem] leading-tight text-white sm:text-4xl">
                   {settings.practitionerName}
-                </h1>
+                </p>
                 <p className="mt-3 text-sm leading-snug text-sky-50/95 sm:text-base">
                   {settings.heroTagline}
                 </p>
@@ -186,9 +194,9 @@ export function HomePage({ settings, articles }: HomePageProps) {
             <p className="text-sm font-medium uppercase tracking-[0.25em] text-sky-600">
               {settings.title}
             </p>
-            <h1 className="mt-4 font-serif text-4xl leading-tight text-slate-900 md:text-5xl lg:text-6xl">
+            <p className="mt-4 font-serif text-4xl leading-tight text-slate-900 md:text-5xl lg:text-6xl">
               {settings.practitionerName}
-            </h1>
+            </p>
             <p className="mt-6 max-w-lg text-lg text-slate-600">{settings.heroTagline}</p>
             <p className="mt-3 text-slate-500">{settings.subtitle}</p>
             <div className="mt-10 flex flex-wrap gap-4">
@@ -258,6 +266,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
       <section
         id="cabinet"
         ref={cabinetRef}
+        aria-labelledby="cabinet-titre"
         className="relative z-10 -mt-8 px-4 pb-20 pt-6 sm:px-6 sm:pb-28 sm:pt-8 lg:-mt-24"
       >
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
@@ -272,7 +281,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
         <div className="mx-auto w-full max-w-6xl">
           <div className="grid w-full gap-8 rounded-2xl border border-sky-100/90 bg-white/85 px-5 py-10 shadow-2xl shadow-sky-100/60 backdrop-blur-md sm:gap-12 sm:rounded-[2.5rem] sm:px-8 sm:py-16 md:grid-cols-2 md:items-start md:px-14">
             <ParallaxColumn progress={cabinetProgress} direction={-1}>
-                <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
+                <h2 id="cabinet-titre" className="font-serif text-3xl text-slate-800 md:text-4xl">
                   Un cabinet pensé pour votre sérénité
                 </h2>
                 <p className="mt-6 leading-relaxed text-slate-600">{settings.aboutIntro}</p>
@@ -305,9 +314,13 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <LogoRail logos={PARTNER_LOGOS} />
 
-      <section id="expertise" className="relative px-4 py-16 sm:px-6 sm:py-24">
+      <section
+        id="expertise"
+        aria-labelledby="expertise-titre"
+        className="relative px-4 py-16 sm:px-6 sm:py-24"
+      >
         <ParallaxFloat speed={0.35} distance={180} className="mx-auto max-w-6xl text-center">
-          <h2 className="font-serif text-3xl text-slate-800 md:text-4xl">
+          <h2 id="expertise-titre" className="font-serif text-3xl text-slate-800 md:text-4xl">
             Domaines d&apos;expertise
           </h2>
         </ParallaxFloat>
@@ -345,6 +358,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
 
       <ParallaxSection
         id="contact"
+        aria-labelledby="contact-titre"
         className="px-4 pb-8 pt-6 sm:px-6 sm:pb-12 sm:pt-8"
         background={
           <div
@@ -356,34 +370,38 @@ export function HomePage({ settings, articles }: HomePageProps) {
         <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-sky-700 to-cyan-800 text-white shadow-2xl sm:rounded-[2.5rem]">
           <div className="grid lg:grid-cols-2">
             <ParallaxFloat speed={0.3} distance={140} className="p-6 sm:p-10 md:p-14">
-              <h2 className="font-serif text-3xl md:text-4xl">Nous contacter</h2>
-              <ul className="mt-8 space-y-4 text-sky-50/95">
-                <li>
-                  <p>{settings.address}</p>
-                  <p>{settings.city}</p>
+              <h2 id="contact-titre" className="font-serif text-3xl md:text-4xl">
+                Nous contacter
+              </h2>
+              <address className="mt-8 space-y-4 not-italic text-sky-50/95">
+                <p>
+                  <span className="block">{settings.address}</span>
+                  <span className="block">{settings.city}</span>
+                </p>
+                <p>
                   <a
                     href={googleMapsDirectionsUrl(settings.address, settings.city)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-flex min-h-[44px] items-center rounded-md border border-white/50 bg-white/15 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/25"
+                    className="inline-flex min-h-[44px] items-center rounded-md border border-white/50 bg-white/15 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/25"
                   >
                     S&apos;y rendre
                   </a>
-                </li>
-                <li>
+                </p>
+                <p>
                   <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="hover:underline">
                     {settings.phone}
                   </a>
-                </li>
+                </p>
                 {settings.email ? (
-                  <li>
+                  <p>
                     <a href={`mailto:${settings.email}`} className="hover:underline">
                       {settings.email}
                     </a>
-                  </li>
+                  </p>
                 ) : null}
-                <li>{settings.openingHours}</li>
-              </ul>
+                <p>{settings.openingHours}</p>
+              </address>
               <p className="mt-6 rounded-xl bg-sky-800/40 p-4 text-sm leading-relaxed text-sky-50/95">
                 {settings.emergencyText}
               </p>
@@ -409,7 +427,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
       <footer className="relative border-t border-sky-100 bg-white/80 px-4 py-8 text-center text-xs text-slate-500 sm:px-6 sm:py-10 sm:text-sm">
         <Image
           src={assetUrl(settings.logoUrl || "/logos/spanu-logo.png")}
-          alt=""
+          alt={`Logo ${settings.practitionerName}, cabinet dentaire à Bures-sur-Yvette`}
           width={767}
           height={325}
           className="mx-auto mb-4 h-8 w-auto opacity-90"
@@ -422,6 +440,7 @@ export function HomePage({ settings, articles }: HomePageProps) {
         )}
       </footer>
       </div>
+      </main>
     </div>
   );
 }

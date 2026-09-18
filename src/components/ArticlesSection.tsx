@@ -36,6 +36,7 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
     <section
       id="actualites"
       ref={sectionRef}
+      aria-labelledby="actualites-titre"
       className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-28"
     >
       <ParallaxFloat
@@ -58,8 +59,11 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
             <p className="text-xs font-medium uppercase tracking-[0.16em] text-sky-600 sm:text-sm sm:tracking-[0.2em]">
               Informations patients
             </p>
-            <h2 className="mt-3 font-serif text-2xl text-slate-800 sm:text-3xl md:text-4xl">
-              Conseils & actualités
+            <h2
+              id="actualites-titre"
+              className="mt-3 font-serif text-2xl text-slate-800 sm:text-3xl md:text-4xl"
+            >
+              Conseils &amp; actualités
             </h2>
           </motion.div>
         </ParallaxFloat>
@@ -100,25 +104,32 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
             })}
           </motion.ul>
 
-          <motion.article
-            key={active?.id}
+          <motion.div
             style={parallaxOn ? { y: panelY, willChange: "transform" } : undefined}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
             className="rounded-2xl border border-sky-100/80 bg-white/90 p-5 shadow-xl shadow-sky-100/50 backdrop-blur-sm sm:rounded-3xl sm:p-8 md:p-10 lg:sticky lg:top-28 lg:self-start"
           >
-            {active && (
-              <>
-                <h3 className="font-serif text-xl text-slate-800 sm:text-2xl md:text-3xl">
-                  {active.title}
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-slate-600 whitespace-pre-line sm:mt-6 sm:text-base">
-                  {active.content}
-                </p>
-              </>
-            )}
-          </motion.article>
+            {articles.map((article) => {
+              const isActive = article.id === active?.id;
+              return (
+                <motion.article
+                  key={article.id}
+                  id={`article-${article.id}`}
+                  initial={isActive ? { opacity: 0, y: 24 } : false}
+                  animate={isActive ? { opacity: 1, y: 0 } : undefined}
+                  transition={{ duration: 0.35 }}
+                  className={isActive ? "block" : "sr-only"}
+                  aria-hidden={!isActive}
+                >
+                  <h3 className="font-serif text-xl text-slate-800 sm:text-2xl md:text-3xl">
+                    {article.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-slate-600 whitespace-pre-line sm:mt-6 sm:text-base">
+                    {isActive ? article.content : `${article.excerpt}\n\n${article.content}`}
+                  </p>
+                </motion.article>
+              );
+            })}
+          </motion.div>
         </div>
       </div>
     </section>

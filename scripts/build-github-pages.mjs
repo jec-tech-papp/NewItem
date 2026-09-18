@@ -39,6 +39,8 @@ const repoName =
   "NewItem";
 
 const basePath = `/${repoName}`;
+const [owner] = (process.env.GITHUB_REPOSITORY ?? "jec-tech-papp/NewItem").split("/");
+const siteUrl = `https://${owner}.github.io${basePath}`;
 
 const env = {
   ...process.env,
@@ -46,6 +48,7 @@ const env = {
   NEXT_PUBLIC_STATIC_PREVIEW: "true",
   NEXT_PUBLIC_REPO_NAME: repoName,
   NEXT_PUBLIC_BASE_PATH: basePath,
+  NEXT_PUBLIC_SITE_URL: siteUrl,
 };
 
 try {
